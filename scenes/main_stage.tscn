@@ -1,0 +1,64 @@
+[gd_scene load_steps=5 format=3 uid="uid://cs1eians5kei8"]
+
+[ext_resource type="PackedScene" uid="uid://0um6cxkx1wxy" path="res://scenes/meaty.tscn" id="1_tsdbj"]
+[ext_resource type="Script" uid="uid://brbi3c7w2flbg" path="res://scripts/main_stage.gd" id="1_wpcyk"]
+[ext_resource type="Script" uid="uid://5pw4mpywxhk0" path="res://scripts/sausage_spawner.gd" id="2_pegp3"]
+[ext_resource type="FontFile" uid="uid://cdwref106wyup" path="res://assets/fonts/Kenney Mini Square.ttf" id="3_kaalw"]
+
+[node name="MainStage" type="Node2D"]
+process_mode = 3
+script = ExtResource("1_wpcyk")
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
+process_mode = 1
+z_index = 10
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 192.0
+offset_bottom = 108.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+
+[node name="ScoreLabel" type="Label" parent="AspectRatioContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_fonts/font = ExtResource("3_kaalw")
+horizontal_alignment = 1
+
+[node name="RestartLabel" type="Label" parent="AspectRatioContainer"]
+visible = false
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_kaalw")
+text = "Game Paused
+Press 'P'"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GameOverLabel" type="Label" parent="AspectRatioContainer"]
+visible = false
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_kaalw")
+text = "Game Over
+Press 'R'"
+horizontal_alignment = 1
+
+[node name="Meaty" parent="." instance=ExtResource("1_tsdbj")]
+process_mode = 1
+position = Vector2(8, 56)
+
+[node name="SausageSpawner" type="Node" parent="."]
+process_mode = 1
+script = ExtResource("2_pegp3")
+
+[node name="Cooldown" type="Timer" parent="SausageSpawner"]
+wait_time = 0.4
+autostart = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+process_mode = 1
+
+[connection signal="timeout" from="SausageSpawner/Cooldown" to="SausageSpawner" method="_on_cooldown_timeout"]

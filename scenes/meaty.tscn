@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://0um6cxkx1wxy"]
+
+[ext_resource type="Script" uid="uid://brng6ysr06itj" path="res://scripts/meaty.gd" id="1_8asnv"]
+[ext_resource type="Texture2D" uid="uid://sms30b8bfi6e" path="res://assets/sprites/tilemap_packed.png" id="1_g0u1y"]
+
+[node name="Meaty" type="CharacterBody2D"]
+script = ExtResource("1_8asnv")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+rotation = 1.5708
+texture = ExtResource("1_g0u1y")
+region_enabled = true
+region_rect = Rect2(180, 110, 18, 16)
+
+[node name="Collision" type="CollisionPolygon2D" parent="."]
+rotation = 1.5708
+polygon = PackedVector2Array(-8, 8, 0, -8, 8, 8)

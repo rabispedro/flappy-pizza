@@ -1,0 +1,54 @@
+[gd_scene load_steps=5 format=3 uid="uid://307svj3n6onf"]
+
+[ext_resource type="Script" uid="uid://bxe7bqlybg23f" path="res://scripts/sausage.gd" id="1_in0tl"]
+[ext_resource type="Texture2D" uid="uid://sms30b8bfi6e" path="res://assets/sprites/tilemap_packed.png" id="1_yjlyf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tdvur"]
+size = Vector2(2, 56)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_in0tl"]
+size = Vector2(16, 39.5)
+
+[node name="Sausage" type="Node2D"]
+process_mode = 1
+script = ExtResource("1_in0tl")
+
+[node name="PointArea" type="Area2D" parent="."]
+
+[node name="Collision" type="CollisionShape2D" parent="PointArea"]
+position = Vector2(9, -28)
+shape = SubResource("RectangleShape2D_tdvur")
+debug_color = Color(0.7, 0.665, 0, 0.419608)
+
+[node name="Lower" type="Area2D" parent="."]
+
+[node name="LowerSprite" type="Sprite2D" parent="Lower"]
+position = Vector2(0, 20)
+rotation = 1.5708
+texture = ExtResource("1_yjlyf")
+flip_v = true
+region_enabled = true
+region_rect = Rect2(234, 72, 42, 18)
+
+[node name="LowerCollision" type="CollisionShape2D" parent="Lower"]
+position = Vector2(0, 20.25)
+shape = SubResource("RectangleShape2D_in0tl")
+
+[node name="Upper" type="Area2D" parent="."]
+
+[node name="UpperSprite" type="Sprite2D" parent="Upper"]
+position = Vector2(1.00008, -75)
+rotation = 1.5708
+texture = ExtResource("1_yjlyf")
+flip_h = true
+flip_v = true
+region_enabled = true
+region_rect = Rect2(234, 72, 42, 18)
+
+[node name="UpperCollision" type="CollisionShape2D" parent="Upper"]
+position = Vector2(1.00008, -75)
+shape = SubResource("RectangleShape2D_in0tl")
+
+[connection signal="body_exited" from="PointArea" to="." method="_on_point_area_body_exited"]
+[connection signal="body_entered" from="Lower" to="." method="_on_lower_body_entered"]
+[connection signal="body_entered" from="Upper" to="." method="_on_upper_body_entered"]
